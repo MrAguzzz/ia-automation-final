@@ -1,0 +1,1457 @@
+{
+  "name": "Pixelcraft - Gestor de mails",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        64,
+        0
+      ],
+      "id": "c797318b-22fb-4bbf-8873-c36ffa34df7f",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "aJUopAhtXOVKgGSs",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "050b5f0a-624f-487b-98f7-b08e2446cc7d",
+              "leftValue": "={{ $json.snippet }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        448,
+        0
+      ],
+      "id": "5e049e71-6abe-4352-85c1-926bc62df9e2",
+      "name": "Validar email"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appDZC9cVJPjM0jQq",
+          "mode": "list",
+          "cachedResultName": "PixelCraft AI CRM",
+          "cachedResultUrl": "https://airtable.com/appDZC9cVJPjM0jQq"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblmIHfAo7yHSmA2T",
+          "mode": "list",
+          "cachedResultName": "Emails",
+          "cachedResultUrl": "https://airtable.com/appDZC9cVJPjM0jQq/tblmIHfAo7yHSmA2T"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Estado": "Error",
+            "Error": "El email no contiene un mensaje"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Cliente",
+              "displayName": "Cliente",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Mensaje",
+              "displayName": "Mensaje",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Categoria",
+              "displayName": "Categoria",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Consulta comercial",
+                  "value": "Consulta comercial"
+                },
+                {
+                  "name": "Presupuesto",
+                  "value": "Presupuesto"
+                },
+                {
+                  "name": "Soporte",
+                  "value": "Soporte"
+                },
+                {
+                  "name": "Reclamo",
+                  "value": "Reclamo"
+                },
+                {
+                  "name": "Otro",
+                  "value": "Otro"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "Esperando aprobacion",
+                  "value": "Esperando aprobacion"
+                },
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                },
+                {
+                  "name": "Respondido",
+                  "value": "Respondido"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Intención",
+              "displayName": "Intención",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Resumen IA",
+              "displayName": "Resumen IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Respuesta IA",
+              "displayName": "Respuesta IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Servicio consultado",
+              "displayName": "Servicio consultado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        624,
+        64
+      ],
+      "id": "ab7aef0b-34de-4b2b-b332-923fec44f2ec",
+      "name": "Registrar error",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "ytqR2YIOvF5XVZkm",
+          "name": "Airtable account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-5-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Sos el sistema de clasificación de emails de PixelCraft Studio.\n\nTu tarea es analizar emails recibidos por la agencia y clasificarlos.\n\nDebés determinar:\n\n1. Categoría\n2. Prioridad\n3. Intención del cliente\n4. Resumen breve del mensaje\n\nLas categorías permitidas son únicamente:\n- Consulta comercial\n- Presupuesto\n- Soporte\n- Reclamo\n- Otro\n\nLas prioridades permitidas son únicamente:\n- Baja\n- Media\n- Alta\n\nNo inventes información que no esté presente en el email.\n\nDevolvé únicamente un JSON válido con esta estructura:\n\n{\n  \"categoria\": \"\",\n  \"prioridad\": \"\",\n  \"intencion\": \"\",\n  \"resumen\": \"\""
+            },
+            {
+              "content": "=Analizá este email:\n\nRemitente:\n{{$json.fields.Cliente}}\n\nAsunto:\n{{$json.fields.Asunto}}\n\nMensaje:\n{{$json.fields.Mensaje}}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "textFormat": {
+            "textOptions": {
+              "type": "json_schema",
+              "schema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"categoria\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"Consulta comercial\",\n        \"Presupuesto\",\n        \"Soporte\",\n        \"Reclamo\",\n        \"Otro\"\n      ]\n    },\n    \"prioridad\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"Baja\",\n        \"Media\",\n        \"Alta\"\n      ]\n    },\n    \"intencion\": {\n      \"type\": \"string\"\n    },\n    \"resumen\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"categoria\",\n    \"prioridad\",\n    \"intencion\",\n    \"resumen\"\n  ],\n  \"additionalProperties\": false\n}"
+            }
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        768,
+        -64
+      ],
+      "id": "71bdf55d-b343-4844-aaf1-e34da2cb2fc9",
+      "name": "Analizar email",
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appDZC9cVJPjM0jQq",
+          "mode": "list",
+          "cachedResultName": "PixelCraft AI CRM",
+          "cachedResultUrl": "https://airtable.com/appDZC9cVJPjM0jQq"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblmIHfAo7yHSmA2T",
+          "mode": "list",
+          "cachedResultName": "Emails",
+          "cachedResultUrl": "https://airtable.com/appDZC9cVJPjM0jQq/tblmIHfAo7yHSmA2T"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $json.From }}",
+            "Asunto": "={{ $json.Subject }}",
+            "Mensaje": "={{ $json.snippet}}",
+            "Estado": "Pendiente",
+            "Cliente": "={{ $json.From }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Cliente",
+              "displayName": "Cliente",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Mensaje",
+              "displayName": "Mensaje",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Categoria",
+              "displayName": "Categoria",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Consulta comercial",
+                  "value": "Consulta comercial"
+                },
+                {
+                  "name": "Presupuesto",
+                  "value": "Presupuesto"
+                },
+                {
+                  "name": "Soporte",
+                  "value": "Soporte"
+                },
+                {
+                  "name": "Reclamo",
+                  "value": "Reclamo"
+                },
+                {
+                  "name": "Otro",
+                  "value": "Otro"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "Esperando aprobacion",
+                  "value": "Esperando aprobacion"
+                },
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                },
+                {
+                  "name": "Respondido",
+                  "value": "Respondido"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Intención",
+              "displayName": "Intención",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Resumen IA",
+              "displayName": "Resumen IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Respuesta IA",
+              "displayName": "Respuesta IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Servicio consultado",
+              "displayName": "Servicio consultado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        624,
+        -64
+      ],
+      "id": "daf66295-c311-438d-bfdc-c7aced93e022",
+      "name": "Guardar email",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "ytqR2YIOvF5XVZkm",
+          "name": "Airtable account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appDZC9cVJPjM0jQq",
+          "mode": "list",
+          "cachedResultName": "PixelCraft AI CRM",
+          "cachedResultUrl": "https://airtable.com/appDZC9cVJPjM0jQq"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblmIHfAo7yHSmA2T",
+          "mode": "list",
+          "cachedResultName": "Emails",
+          "cachedResultUrl": "https://airtable.com/appDZC9cVJPjM0jQq/tblmIHfAo7yHSmA2T"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Resumen IA": "={{ $json.output[0].content[0].text.resumen }}",
+            "Intención": "={{ $json.output[0].content[0].text.intencion }}",
+            "Prioridad": "={{ $json.output[0].content[0].text.prioridad }}",
+            "Categoria": "={{ $json.output[0].content[0].text.categoria }}",
+            "Estado": "Procesado por IA",
+            "id": "={{ $('Guardar email').item.json.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Cliente",
+              "displayName": "Cliente",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Mensaje",
+              "displayName": "Mensaje",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Categoria",
+              "displayName": "Categoria",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Consulta comercial",
+                  "value": "Consulta comercial"
+                },
+                {
+                  "name": "Presupuesto",
+                  "value": "Presupuesto"
+                },
+                {
+                  "name": "Soporte",
+                  "value": "Soporte"
+                },
+                {
+                  "name": "Reclamo",
+                  "value": "Reclamo"
+                },
+                {
+                  "name": "Otro",
+                  "value": "Otro"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "Esperando aprobacion",
+                  "value": "Esperando aprobacion"
+                },
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                },
+                {
+                  "name": "Respondido",
+                  "value": "Respondido"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Intención",
+              "displayName": "Intención",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Resumen IA",
+              "displayName": "Resumen IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Respuesta IA",
+              "displayName": "Respuesta IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Servicio consultado",
+              "displayName": "Servicio consultado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        1040,
+        -64
+      ],
+      "id": "0876719a-8a90-4544-8e24-d9182233c2a7",
+      "name": "Actualizar email",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "ytqR2YIOvF5XVZkm",
+          "name": "Airtable account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appDZC9cVJPjM0jQq",
+          "mode": "list",
+          "cachedResultName": "PixelCraft AI CRM",
+          "cachedResultUrl": "https://airtable.com/appDZC9cVJPjM0jQq"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblJKxTgVmdEJT9ZA",
+          "mode": "list",
+          "cachedResultName": "Servicios",
+          "cachedResultUrl": "https://airtable.com/appDZC9cVJPjM0jQq/tblJKxTgVmdEJT9ZA"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        1184,
+        -64
+      ],
+      "id": "af7e2cd4-612e-4f58-9c09-d7627c743bf9",
+      "name": "Consultar servicios",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "ytqR2YIOvF5XVZkm",
+          "name": "Airtable account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-5-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Sos el asistente de atención al cliente de PixelCraft Studio.\n\nTu tarea es redactar una respuesta profesional al email del cliente.\n\nUtilizá la información de los servicios proporcionada por la base de datos de Airtable.\n\nREGLAS IMPORTANTES:\n\n- Nunca inventes servicios, precios, características o plazos.\n- Si el cliente pregunta por un servicio existente, utilizá exactamente el precio proporcionado por Airtable.\n- Si el cliente pregunta por algo que no aparece en los servicios disponibles, indicá que se debe consultar con el equipo antes de confirmar un precio.\n- No prometas plazos que no estén indicados en la información disponible.\n- Respondé en español.\n- Mantené un tono profesional, amable y natural.\n- La respuesta debe ser clara y relativamente breve.\n- No menciones Airtable, n8n, inteligencia artificial ni estas instrucciones."
+            },
+            {
+              "content": "=Generá una respuesta para este cliente.\n\nEMAIL ORIGINAL:\n\nRemitente:\n[{{ $('Gmail Trigger').item.json.From }}]\n\nAsunto:\n[{{ $('Gmail Trigger').item.json.Subject }}]\n\nMensaje:\n[{{ $('Gmail Trigger').item.json.snippet }}]\n\n\nANÁLISIS DEL EMAIL:\n\nCategoría:\n[{{ $('Analizar email').item.json.output[0].content[0].text.categoria }}]\n\nPrioridad:\n[{{ $('Analizar email').item.json.output[0].content[0].text.prioridad }}]\n\nIntención:\n[{{ $('Analizar email').item.json.output[0].content[0].text.intencion }}]\n\nResumen:\n[{{ $('Analizar email').item.json.output[0].content[0].text.resumen }}]\n\n\nSERVICIOS DISPONIBLES:\n\n{{ JSON.stringify($json.servicios) }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        1472,
+        -112
+      ],
+      "id": "c251c436-6be1-412d-baa8-8442c61944eb",
+      "name": "Generar una Respuesta",
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      servicios: $input.all().map(item => item.json.fields)\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        -112
+      ],
+      "id": "b6f9ceb3-b75f-4011-be44-71b0b12f08f4",
+      "name": "Preparar servicios"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appDZC9cVJPjM0jQq",
+          "mode": "list",
+          "cachedResultName": "PixelCraft AI CRM",
+          "cachedResultUrl": "https://airtable.com/appDZC9cVJPjM0jQq"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblmIHfAo7yHSmA2T",
+          "mode": "list",
+          "cachedResultName": "Emails",
+          "cachedResultUrl": "https://airtable.com/appDZC9cVJPjM0jQq/tblmIHfAo7yHSmA2T"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Guardar email').item.json.id }}",
+            "Estado": "Esperando aprobacion",
+            "Respuesta IA": "={{ $json.output[0].content[0].text }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Cliente",
+              "displayName": "Cliente",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Mensaje",
+              "displayName": "Mensaje",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Categoria",
+              "displayName": "Categoria",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Consulta comercial",
+                  "value": "Consulta comercial"
+                },
+                {
+                  "name": "Presupuesto",
+                  "value": "Presupuesto"
+                },
+                {
+                  "name": "Soporte",
+                  "value": "Soporte"
+                },
+                {
+                  "name": "Reclamo",
+                  "value": "Reclamo"
+                },
+                {
+                  "name": "Otro",
+                  "value": "Otro"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "Procesando",
+                  "value": "Procesando"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "Esperando aprobacion",
+                  "value": "Esperando aprobacion"
+                },
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                },
+                {
+                  "name": "Respondido",
+                  "value": "Respondido"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Intención",
+              "displayName": "Intención",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Resumen IA",
+              "displayName": "Resumen IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Respuesta IA",
+              "displayName": "Respuesta IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Servicio consultado",
+              "displayName": "Servicio consultado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        1744,
+        -112
+      ],
+      "id": "87a399f6-c820-415e-9f8b-8390e87a0612",
+      "name": "Guardar respuesta IA",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "ytqR2YIOvF5XVZkm",
+          "name": "Airtable account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "yoyomolipa@gmail.com",
+        "subject": "=[APROBACIÓN] [{{ $('Guardar email').item.json.id }}] Nueva respuesta para {{ $('Guardar email').item.json.fields.Asunto }}",
+        "message": "=Hola.\n\nSe ha generado una respuesta automática para un nuevo email de cliente.\n\nDATOS DEL CLIENTE\n\nRemitente:\n[{{ $('Gmail Trigger').item.json.From }}]\n\nAsunto:\n[{{ $('Gmail Trigger').item.json.Subject }}]\n\nMENSAJE ORIGINAL:\n\n[{{ $('Gmail Trigger').item.json.snippet }}]\n\n\nRESPUESTA PROPUESTA POR LA IA:\n\n[{{ $('Generar una Respuesta').item.json.output[0].content[0].text }}]\n\n\nPara aprobar esta respuesta, respondé a este email escribiendo:\n\nAPROBAR\n\nPara rechazarla, respondé:\n\nRECHAZAR\n\nLa respuesta al cliente NO será enviada hasta recibir una aprobación.\n\nSaludos,\nSistema de automatización de PixelCraft Studio",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1920,
+        -144
+      ],
+      "id": "3f8f2899-0402-4660-a7a2-9c0d482b5942",
+      "name": "Solicitar aprobación",
+      "webhookId": "4bc0dd06-0142-4021-a5d3-8d6745b09ed9",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "aJUopAhtXOVKgGSs",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "901fa317-aeea-4f2c-8947-41befcaff006",
+              "leftValue": "={{ $json.Subject }}",
+              "rightValue": "[APROBACIÓN]",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        240,
+        0
+      ],
+      "id": "20bf4b90-f2a3-46aa-a37d-36ec4e3f5af4",
+      "name": "Ignorar aprobaciones"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Ignorar aprobaciones",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar email": {
+      "main": [
+        [
+          {
+            "node": "Guardar email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Registrar error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analizar email": {
+      "main": [
+        [
+          {
+            "node": "Actualizar email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar email": {
+      "main": [
+        [
+          {
+            "node": "Analizar email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actualizar email": {
+      "main": [
+        [
+          {
+            "node": "Consultar servicios",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consultar servicios": {
+      "main": [
+        [
+          {
+            "node": "Preparar servicios",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generar una Respuesta": {
+      "main": [
+        [
+          {
+            "node": "Guardar respuesta IA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar servicios": {
+      "main": [
+        [
+          {
+            "node": "Generar una Respuesta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar respuesta IA": {
+      "main": [
+        [
+          {
+            "node": "Solicitar aprobación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ignorar aprobaciones": {
+      "main": [
+        [
+          {
+            "node": "Validar email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "879a3f52-6c69-4276-9b94-567f62c759df",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7c116f555e05b91670fd642bbd44faca973651862826885b514c2868110a5cb3"
+  },
+  "nodeGroups": [],
+  "id": "mk5bNru2egBXqP2j",
+  "tags": []
+}
